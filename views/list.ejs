@@ -1,0 +1,32 @@
+<%- include('header'); -%>
+
+<div class="box" id="heading">
+  <h1><%= listTitle %></h1>
+</div>
+
+<div class="box">
+  <% if (newListItems.length === 0) { %>
+  <div class="item">
+    <p>Add New Item</p>
+  </div>
+  <% } %>
+
+
+  <% newListItems.forEach((item, i) => { %>
+  <div class="item">
+    <input type="checkbox">
+    <p> <%=item.name %> </p>
+    <form class="trash" action="/delete" method="post">
+      <button type="submit" name="itemID" value=<%= item._id %>><span style="color: Mediumslateblue;"><i class="fa-solid fa-trash"></i></span></button>
+      <input type="hidden" name="list" value=<%= listTitle %>>
+    </form>
+  </div>
+  <% }); %>
+
+  <form class="item" action="/" method="post">
+    <input maxlength="20" type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus required>
+    <button class="submitButton" type="submit" name="list" value=<%= listTitle %>>+</button>
+  </form>
+</div>
+
+<%- include('footer'); -%>
